@@ -73,4 +73,3 @@ def registrar_producto(ventana, limpiar_pantalla, logo_label, boton_1, boton_2, 
     boton_aceptar = ctk.CTkButton(master = tarjeta_registro, text="Aceptar", bg_color="#E0E0E0", fg_color="#00BFFE", width= 250, height= 40)
     boton_aceptar.pack(pady=20)
     
-    ventana.configure(bg="white")
