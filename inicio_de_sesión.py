@@ -20,7 +20,7 @@ color_gris = "#E0E0E0"
 archivo_usuarios = "usuarios.txt"
 
 ventana = customtkinter.CTk()
-ventana.title("Inicio de Sesion")
+ventana.title("KeepIt")
 ventana.geometry("1060x650")
 ventana.configure(bg=color_fondo)
 ventana.resizable(True, True)

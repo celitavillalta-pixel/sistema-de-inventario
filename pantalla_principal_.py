@@ -2,8 +2,10 @@
 
 import customtkinter
 import tkinter as tk 
+from eliminación import pantalla_eliminacion
 from imagen_logo import logo
 from pantalla_registro_de_produc import registrar_producto 
+from backend_sist_invent import cargar_inventario
 
 def principal_keepit(ventana, limpiar_pantalla):
     #espicifcaciones de customtkinter.
@@ -11,7 +13,7 @@ def principal_keepit(ventana, limpiar_pantalla):
     limpiar_pantalla()  
 
     customtkinter.set_appearance_mode("light")  # Modos: "System" (predeterminado), "Dark", "Light"
-    customtkinter.set_default_color_theme("blue")  # Temas: "blue" (predeterminado), "green", "dark-blue"
+    customtkinter.set_default_color_theme("blue")  # Temas: "blue" (predeterminado), "green", "dark-blue"   
     
 
     tarjeta_pantalla_principal = customtkinter.CTkFrame(master=ventana, fg_color="white", corner_radius=15)
@@ -26,8 +28,20 @@ def principal_keepit(ventana, limpiar_pantalla):
     )
     logo_label.pack(pady = 20, padx = 20) 
 
+    label_estado = customtkinter.CTkLabel(
+    master=tarjeta_pantalla_principal,
+    text=f"Productos guardados: {len(cargar_inventario())}",
+    font=("Segoe UI", 12, "bold"),
+    bg_color="transparent",
+    )
+    label_estado.pack(pady=10)
+    
 
-    ventana.configure(bg_color = "#E0E0E0") 
+    def abrir_registro():
+        registrar_producto()
+        label_estado.configure(text=f"Productos guardados: {len(cargar_inventario())}")
+ 
+ 
 
     #Botones 
 
@@ -39,7 +53,7 @@ def principal_keepit(ventana, limpiar_pantalla):
         fg_color="#00BFFE", 
         width= 250,
         height= 40,
-        command=lambda: registrar_producto(tarjeta_pantalla_principal, limpiar_pantalla, logo_label, boton_1, boton_2, boton_3)
+        command=lambda: registrar_producto(tarjeta_pantalla_principal, logo_label, boton_1, boton_2, boton_3)
         )
     boton_1.pack(pady=20)
 
@@ -50,7 +64,7 @@ def principal_keepit(ventana, limpiar_pantalla):
         bg_color= "#E0E0E0",
         fg_color= "#00BFFE",
         width= 250,
-        height= 40
+        height= 40,
         )
     boton_2.pack(pady=20)  
 
@@ -61,11 +75,12 @@ def principal_keepit(ventana, limpiar_pantalla):
         bg_color = "#E0E0E0", 
         fg_color = "#00BFFE",
         width = 250,
-        height = 40
-        )
+        height = 40,
+         command=lambda: pantalla_eliminacion(ventana, limpiar_pantalla)
+    )
+    
     boton_3.pack(pady= 20) 
     
-
 
 
     ventana.mainloop()

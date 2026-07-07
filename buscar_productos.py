@@ -1,22 +1,25 @@
-def mostrar_inventario():
-    ventana = ctk.CTkToplevel(screen)
-    ventana.title("Mostrar Inventario")
-    ventana.geometry("350x300")
 
-    etiqueta = ctk.CTkLabel(
+import customtkinter 
+
+customtkinter.set_appearance_mode("light") 
+customtkinter.set_default_color_theme("blue") 
+
+def buscar_productos(ventana):
+
+    etiqueta = customtkinter.CTkLabel(
         ventana,
         text="Buscar producto",
         font=("Helvetica", 16)
     )
     etiqueta.pack(pady=10)
 
-    entrada_busqueda = ctk.CTkEntry(
+    entrada_busqueda = customtkinter.CTkEntry(
         ventana,
         placeholder_text="Nombre del producto"
     )
     entrada_busqueda.pack(pady=10)
 
-    resultado = ctk.CTkLabel(
+    resultado = customtkinter.CTkLabel(
         ventana,
         text="",
         font=("Helvetica", 14)
@@ -33,7 +36,7 @@ def mostrar_inventario():
                 return
         resultado.configure(text="Producto no encontrado")
 
-    boton_buscar = ctk.CTkButton(
+    boton_buscar = customtkinter.CTkButton(
         ventana,
         text="Buscar",
         command=buscar
