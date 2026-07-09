@@ -9,20 +9,27 @@ def buscar_productos(ventana):
     etiqueta = customtkinter.CTkLabel(
         ventana,
         text="Buscar producto",
-        font=("Helvetica", 16)
+        font=("Helvetica", 16), 
+        bg_color= "#E0E0E0", 
+        text_color= "#00BFFE",
     )
     etiqueta.pack(pady=10)
 
     entrada_busqueda = customtkinter.CTkEntry(
         ventana,
-        placeholder_text="Nombre del producto"
+        placeholder_text="Nombre del producto",
+          font=("segoe UI", 24, "bold"),
+          bg_color= "#E0E0E0", 
+          text_color= "#00BFFE",
     )
     entrada_busqueda.pack(pady=10)
 
     resultado = customtkinter.CTkLabel(
         ventana,
         text="",
-        font=("Helvetica", 14)
+        font=("Helvetica", 14),
+        bg_color= "#E0E0E0", 
+        text_color= "#00BFFE",
     )
     resultado.pack(pady=15)
 
@@ -39,6 +46,9 @@ def buscar_productos(ventana):
     boton_buscar = customtkinter.CTkButton(
         ventana,
         text="Buscar",
+        font=("Segoe UI", "bold", 14),
+        fg_color ="#E0E0E0",
+        text_color= "#00BFFE",
         command=buscar
     )
     boton_buscar.pack(pady=10)
