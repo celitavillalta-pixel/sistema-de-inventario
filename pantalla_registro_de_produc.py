@@ -3,7 +3,8 @@
 from tkinter import messagebox
 import customtkinter as ctk
 from backend_sist_invent import guardar_producto_json
-
+from backend_sist_invent import productos_ingresados
+ 
 def registrar_producto(ventana, logo_label, boton_1, boton_2, boton_3):
      
     
@@ -107,8 +108,8 @@ def registrar_producto(ventana, logo_label, boton_1, boton_2, boton_3):
     
     
     #boton de aceptar.
-    boton_aceptar = ctk.CTkButton(master = tarjeta_registro, text="Aceptar", font=("Segoe UI", 12, "bold"), bg_color="#E0E0E0", fg_color="#00BFFE", width= 250, height= 40, command=guardar_producto)
+    boton_aceptar = ctk.CTkButton(master = tarjeta_registro, text="Aceptar", font=("Segoe UI", 12, "bold"), bg_color="#E0E0E0", fg_color="#00BFFE", width= 250, height= 40, command=lambda: productos_ingresados(entry_código, entry_nombre, entry_cantidad, entry_precio, opcion, label_precio, label_cantidad, label_nombre, label_código))
     boton_aceptar.pack(pady=10)
     
-    boton_volver = ctk.CTkButton(master = tarjeta_registro, text="Volver", bg_color="#E0E0E0", fg_color="#00BFFE", width= 250, height= 40)
+    boton_volver = ctk.CTkButton(master = tarjeta_registro, text="Volver", font=("Segoe UI", 12, "bold"), bg_color="#E0E0E0", fg_color="#00BFFE", width= 250, height= 40)
     boton_volver.pack(pady=10)

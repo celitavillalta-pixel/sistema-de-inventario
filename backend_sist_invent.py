@@ -37,7 +37,7 @@ def productos_ingresados(entry_codigo, entry_nombre, entry_cantidad, entry_preci
     nombre = entry_nombre.get().strip()
     cantidad = entry_cantidad.get().strip()
     precio = entry_precio.get().strip()
-    categoria = opcion.get()
+    categoría = opcion.get()
  
     if not codigo or not nombre or not cantidad or not precio:
         messagebox.showerror("Error", "Por favor, complete todos los campos.")
@@ -50,12 +50,12 @@ def productos_ingresados(entry_codigo, entry_nombre, entry_cantidad, entry_preci
         messagebox.showerror("Error", "La cantidad debe ser un número entero y el precio debe ser un número decimal.")
         return
  
-    label_codigo.config(text=f"Código: {codigo}"), font=("Segou", "bold", 14), text_color=("#00BFFE")
-    label_nombre.config(text=f"Nombre: {nombre}"), font=("Segou", "bold", 14), text_color=("#00BFFE")
-    label_cantidad.config(text=f"Cantidad: {cantidad}", font=("Segou", "bold", 14)), text_color= ("#00BFFE")
-    label_precio.config(text=f"Precio: ${precio:.2f}", font=("Segou", "bold", 14)), text_color= ("#00BFFE")
-    categorias = {1: "Repuestos", 2: "Tecnología", 3: "Otro"}, font=("Segou", "bold", 14), text_color= ("#00BFFE")
-    categorias.config(text=f"Categoría: {categorias.get(categoria, 'Desconocida')}"), font=("Segou", "bold", 14), text_color= ("#00BFFE") 
+    label_codigo.configure(text=f"Código: {codigo}", font=("Segoe UI", "bold", 14), text_color=("#00BFFE"))
+    label_nombre.configure(text=f"Nombre: {nombre}", font=("Segoe UI", "bold", 14), text_color=("#00BFFE"))
+    label_cantidad.configure(text=f"Cantidad: {cantidad}", font=("Segoe UI", "bold", 14), text_color= ("#00BFFE"))
+    label_precio.configure(text=f"Precio: ${precio:.2f}", font=("Segoe UI", "bold", 14), text_color= ("#00BFFE"))
+    categorias = {1: "Repuestos", 2: "Tecnología", 3: "Otro"}
+    categorias.configure(text=f"Categoría: {categoría.get(categoría, 'Desconocida')}", font=("Segoe UI", "bold", 14), text_color="#00BFFE")
 
     entry_codigo.delete(0, 'end')
     entry_nombre.delete(0, 'end')
