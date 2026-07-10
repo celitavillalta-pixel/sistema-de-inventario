@@ -1,87 +1,102 @@
-
-import customtkinter 
-from CTkListbox import CTkListbox
-
+import customtkinter
+import tkinter as tk
+from tkinter import messagebox
+from backend_sist_invent import cargar_inventario
+import json
+from pathlib import Path
  
 customtkinter.set_appearance_mode("light")  # Modos: "System" (predeterminado), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Temas: "blue" (predeterminado), "green", "dark-blue"
-
-
-import tkinter as tk
-from tkinter import messagebox
  
-       
  
 def pantalla_eliminacion(ventana, limpiar_pantalla):
     limpiar_pantalla()
-    
-    #Declaracion de funcion
+   
+    # Cargar inventario
+    inventario = cargar_inventario()
+    productos_seleccionados = {"indice": None}
+   
+    # Declaracion de funcion
     def eliminar_producto():
-        producto = lista_productos.curselection()
-        #Confirmar elimiacion
-        if producto:
+        if productos_seleccionados["indice"] is not None:
             confirmar = messagebox.askyesno(
-                "Eliminar producto", "¿Seguro que desea eliminar el producto?"
+                "Eliminar producto", "¿Seguro que desea eliminar este producto?"
             )
-        #Por si no seleciono produto para eliminar
             if confirmar:
-                lista_productos.delete(producto)
+                inventario.pop(productos_seleccionados["indice"])
+                # Guardar cambios
+                ruta = Path(__file__).with_name("inventario.json")
+                with ruta.open("w", encoding="utf-8") as archivo:
+                    json.dump(inventario, archivo, ensure_ascii=False, indent=2)
+                messagebox.showinfo("Éxito", "Producto eliminado correctamente")
+                actualizar_lista()
         else:
             messagebox.showwarning(
                 "Aviso", "Seleccione un producto primero"
             )
-#Frame de eliminacion    
-    tajeta_eliminación = customtkinter.CTkFrame(
-        master = ventana,
-        bg_color="#E0E0E0",
-        
+   
+    def actualizar_lista():
+        lista_productos.delete(0, tk.END)
+        inventario_actualizado = cargar_inventario()
+        for producto in inventario_actualizado:
+            lista_productos.insert(tk.END, f"{producto['nombre']} (${producto['precio']:.2f})")
+   
+    def on_select(_):
+        selection = lista_productos.curselection()
+        if selection:
+            productos_seleccionados["indice"] = selection[0]
+   
+    #Frame de eliminacion    
+    tarjeta_eliminacion = customtkinter.CTkFrame(
+        master=ventana,
+        fg_color="white",
+        corner_radius=15
     )
-    tajeta_eliminación.pack(pady=40, padx=40, fill="both", expand=True)  
-    
+    tarjeta_eliminacion.pack(pady=40, padx=40, fill="both", expand=True)  
+   
     #Titulo de frame
     lbl = customtkinter.CTkLabel(
-        master=tajeta_eliminación,
-        text="Selecione el producto a eliminar",
+        master=tarjeta_eliminacion,
+        text="Seleccione el producto a eliminar",
         font=("Segoe UI", 14, "bold"),
         bg_color="transparent",
-        fg_color="#00BFFE" 
+        text_color="#00BFFE"
     )
-    lbl.pack(pady = 30)
-    
-    #Lista de productos
-    lista_productos = CTkListbox(
-        master=tajeta_eliminación, 
-        width=250,
-        height=200,
-        font=("Segoe UI", 12),
-        bg_color="#E0E0E0", 
-        text_color="#121212"
+    lbl.pack(pady=30)
+   
+    #Lista de productos con Listbox estándar
+    frame_listbox = customtkinter.CTkFrame(master=tarjeta_eliminacion, fg_color="white")
+    frame_listbox.pack(pady=10, padx=20, fill="both", expand=True)
+   
+    lista_productos = tk.Listbox(
+        master=frame_listbox,
+        width=40,
+        height=12,
+        font=("Segoe UI", 11),
+        bg="white",
+        fg="#121212",
+        border=1
     )
-    lista_productos.pack(pady=30)
-    
-    
-    lista_productos.insert("END", "Dell OptiPlex 7010")
-    lista_productos.insert("END", "HD ProDesk 400 G9")
-    lista_productos.insert("END", "Lenovo ThinkCentre M70S")
-    lista_productos.insert("END", "Acer Veriton X")
-    lista_productos.insert("END", "ASUS ExpertCenter D5")
-    lista_productos.insert("END", "Dell Inspiron 15")
-    lista_productos.insert("END", "HP Pavilion 15")
-    lista_productos.insert("END", "Lenovo IdeaPad 3")
-    lista_productos.insert("END", "Logitech M185")
-    lista_productos.insert("END", "Logitech G203")
-    
-    #boton de eliminacion
+    lista_productos.pack(fill="both", expand=True)
+    lista_productos.bind("<<ListboxSelect>>", on_select)
+   
+    # Actualizar lista con productos del inventario
+    actualizar_lista()
+   
+    #Botones
+    frame_botones = customtkinter.CTkFrame(master=tarjeta_eliminacion, fg_color="transparent")
+    frame_botones.pack(pady=20)
+   
     btn_eliminar = customtkinter.CTkButton(
-        master=tajeta_eliminación,
+        master=frame_botones,
         text="Eliminar",
         command=eliminar_producto,
-        bg_color="#00BFFE",
+        bg_color="transparent",
         fg_color="#00BFFE",
         font=("Segoe UI", 12, "bold"),
-        width= 250, 
-        height= 40,
+        width=120,
+        height=40,
         cursor="hand2"
     )
-    btn_eliminar.pack(pady=20)
+    btn_eliminar.pack(side="left", padx=10)
  
