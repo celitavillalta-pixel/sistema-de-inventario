@@ -6,7 +6,7 @@ import json
 from pathlib import Path
  
 customtkinter.set_appearance_mode("light")  # Modos: "System" (predeterminado), "Dark", "Light"
-customtkinter.set_default_color_theme("blue")  # Temas: "blue" (predeterminado), "green", "dark-blue"
+customtkinter.set_default_color_theme("blue")  # Temas: "blue" (predeterminado), "green", "dark-blue" 
  
  
 def pantalla_eliminacion(ventana, limpiar_pantalla):
