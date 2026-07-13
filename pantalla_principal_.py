@@ -3,7 +3,8 @@ from eliminación import pantalla_eliminacion
 from imagen_logo import logo
 from pantalla_registro_de_produc import registrar_producto
 from backend_sist_invent import cargar_inventario
- 
+
+
 def principal_keepit(ventana, limpiar_pantalla):
     #espicifcaciones de customtkinter.
    
@@ -12,10 +13,11 @@ def principal_keepit(ventana, limpiar_pantalla):
     customtkinter.set_appearance_mode("light")  # Modos: "System" (predeterminado), "Dark", "Light"
     customtkinter.set_default_color_theme("blue")  # Temas: "blue" (predeterminado), "green", "dark-blue"  
    
- 
+    ventana.configure(fg_color="#8EA7FF")
     tarjeta_pantalla_principal = customtkinter.CTkFrame(master=ventana, fg_color="white", corner_radius=15)
-    tarjeta_pantalla_principal.pack(pady=40, padx=40, fill="both", expand=True)
- 
+    tarjeta_pantalla_principal.pack(pady=40, padx=40, fill="both", expand=True)  
+
+
     #Labels.
     #logo
     logo_label = customtkinter.CTkLabel(
@@ -23,7 +25,7 @@ def principal_keepit(ventana, limpiar_pantalla):
         image = logo,
         text = ""
     )
-    logo_label.pack(pady = 20, padx = 20)
+    logo_label.pack(pady = 50, padx = 30)
  
     label_estado = customtkinter.CTkLabel(
     master=tarjeta_pantalla_principal,
@@ -31,9 +33,8 @@ def principal_keepit(ventana, limpiar_pantalla):
     font=("Segoe UI", 12, "bold"),
     bg_color="transparent",
     )
-    label_estado.pack(pady=10)
-   
- 
+    label_estado.pack(pady=20)
+
     #Botones
  
     boton_1= customtkinter.CTkButton(
@@ -46,7 +47,7 @@ def principal_keepit(ventana, limpiar_pantalla):
         height= 40,
         command=lambda: registrar_producto(tarjeta_pantalla_principal, logo_label, boton_1, boton_2, boton_3)
         )
-    boton_1.pack(pady=20)
+    boton_1.pack(pady=30)
  
     def mostrar_inventario():
         from buscar_productos import buscar_productos
@@ -76,8 +77,8 @@ def principal_keepit(ventana, limpiar_pantalla):
          command=lambda: pantalla_eliminacion(ventana, limpiar_pantalla)
     )
    
-    boton_3.pack(pady= 20)
-   
- 
+    boton_3.pack(pady= 30)
+    
+
  
     ventana.mainloop()
