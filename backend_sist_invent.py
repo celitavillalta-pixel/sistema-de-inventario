@@ -33,10 +33,20 @@ def guardar_producto_json(producto):
  
  
 def productos_ingresados(entry_codigo, entry_nombre, entry_cantidad, entry_precio, opcion, label_precio, label_cantidad, label_nombre, label_codigo):
-    # Función para mostrar los productos ingresados en la pantalla principal.
-    codigo = entry_codigo.get().strip()
+    
+    codigo_limpio = "".join(caracter for caracter in entry_codigo.get() if caracter.isdigit())
+    cantidad_limpia = "".join(caracter for caracter in entry_cantidad.get() if caracter.isdigit())
+    
+   
+    entry_codigo.insert(0, codigo_limpio)
+    
+    entry_cantidad.delete(0, 'end')
+    entry_cantidad.insert(0, cantidad_limpia)
+   
+ 
+    codigo = codigo_limpio.strip()
     nombre = entry_nombre.get().strip()
-    cantidad = entry_cantidad.get().strip()
+    cantidad = cantidad_limpia.strip()
     precio = entry_precio.get().strip()
  
     if not codigo or not nombre or not cantidad or not precio:

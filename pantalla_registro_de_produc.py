@@ -4,7 +4,31 @@ from backend_sist_invent import guardar_producto_json
  
 def registrar_producto(ventana, logo_label, boton_1, boton_2, boton_3):
      
-   
+   from tkinter import messagebox
+import customtkinter as ctk
+from backend_sist_invent import guardar_producto_json
+
+# 
+def solo_precio_validador(texto_nuevo):
+    if texto_nuevo == "":
+        return True
+    return texto_nuevo.replace(".", "", 1).isdigit() and texto_nuevo.count(".") <= 1
+
+def solo_numeros_validador(texto_nuevo):
+    if texto_nuevo == "":
+        return True
+    return texto_nuevo.isdigit()
+
+
+# 
+def registrar_producto(ventana, logo_label, boton_1, boton_2, boton_3):
+    
+    logo_label.pack_forget()
+    boton_1.pack_forget()
+    boton_2.pack_forget()
+    boton_3.pack_forget()
+    
+    
     logo_label.pack_forget()
     boton_1.pack_forget()
     boton_2.pack_forget()
@@ -61,7 +85,13 @@ def registrar_producto(ventana, logo_label, boton_1, boton_2, boton_3):
         bg_color="transparent"
         )
     label_cantidad.pack(pady=(0, 15), padx=10)
-    entry_cantidad = ctk.CTkEntry(master=tarjeta_registro, width= 250, height= 40)
+    entry_cantidad = ctk.CTkEntry(
+    master=tarjeta_registro, 
+    width=250, 
+    height=40,
+    validate="key",
+    validatecommand=(ventana.register(solo_numeros_validador), "%P")
+)
     entry_cantidad.pack(pady=(0, 15), padx=10)
    
     #Precio del producto.
@@ -71,7 +101,13 @@ def registrar_producto(ventana, logo_label, boton_1, boton_2, boton_3):
         bg_color="transparent"
         )
     label_precio.pack(pady=(10, 2), padx=2)
-    entry_precio = ctk.CTkEntry(master=tarjeta_registro, width= 250, height= 40)
+    entry_precio = ctk.CTkEntry(
+    master=tarjeta_registro, 
+    width=250, 
+    height=40,
+    validate="key",
+    validatecommand=(ventana.register(solo_precio_validador), "%P")
+)
     entry_precio.pack(pady=(0, 20), padx=10)
    
     def guardar_producto():
